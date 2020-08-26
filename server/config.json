@@ -10,8 +10,13 @@
         "REQUEST_SERVER_TOKEN":"/server"
     },
     "EMAIL":{
-        "address":"dummewerbung2@gmail.com",
-        "noreply":"no-reply@falcon.com",
-        "password":"Frodo20#14"
+        "address":"",
+        "noreply":"no-reply@informatik-rpg.com",
+        "password":""
+    },
+    "STRING":{
+      "TITLE":"informatik_RPG",
+      "email_account_validation_title":"#TITLE | Account validation",
+      "email_account_validation_content":"Hello %s,\n\nTo verify your #TITLE account please follow the link: %s%s/%s"
     }
 }

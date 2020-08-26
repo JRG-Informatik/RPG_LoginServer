@@ -4,11 +4,12 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const nodemailer = require('nodemailer');
+const util = require('util');
 
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('falcon.db');
+var db = new sqlite3.Database('informatik_rpg.db');
 
 const ENV = require(__dirname+'/config.json');
 const __client = require('path').join(__dirname, '../client/');
@@ -51,7 +52,7 @@ app.post(ENV.PAGE.REGISTER, async (req, res) => {
     })) return res.send('error: account already exists');
     let hash = await bcrypt.hash(req.body.password, await bcrypt.genSalt());
     db.run(`INSERT INTO users (email, username, hash) VALUES (?, ?, ?)`, [req.body.email, req.body.username, hash]);
-    
+
     let user = await new Promise((resolve, reject)=>{
         db.get(`SELECT username, email, id FROM users WHERE email=?`, [req.body.email], (err, row)=>{resolve(row);});
     });
@@ -60,8 +61,8 @@ app.post(ENV.PAGE.REGISTER, async (req, res) => {
     let mailOptions = {
         from: ENV.EMAIL.noreply,
         to: user.email,
-        subject: 'FALCON | Account validation',
-        text: `Hello ${user.username},\n\nTo verify your Falcon account please follow the link: ${ENV.DOMAIN}${ENV.PAGE.CONFIRM_EMAIL}/${token}`
+        subject: getString("email_account_validation_title"),
+        text: util.format(getString("email_account_validation_content"), user.username, ENV.DOMAIN, ENV.PAGE.CONFIRM_EMAIL, token)//`Hello ${user.username},\n\nTo verify your Falcon account please follow the link: ${ENV.DOMAIN}${ENV.PAGE.CONFIRM_EMAIL}/${token}`
     }
     getMailTransporter().sendMail(mailOptions, (err)=>{if(err){console.log(err);}});
     res.redirect(ENV.PAGE.LOGIN);
@@ -191,3 +192,14 @@ function getMailTransporter(){
 }
 
 });
+
+function getString(key){
+  let value = ENV.STRING[key], match;
+  if(!value) return "";
+  while(match = value.match(/#(.*?)(?: |$)/)){
+    replacement = ENV.STRING[match[1]];
+    if(replacement) value = value.replace(match[0], replacement);
+    else break;
+  }
+  return value;
+}
