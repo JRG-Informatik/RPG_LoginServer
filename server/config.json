@@ -1,0 +1,17 @@
+{
+    "DOMAIN":"http://",
+    "PAGE":{
+        "HOME":"/",
+        "LOGIN":"/login",
+        "REGISTER":"/register",
+        "RESET_PASSWORD":"/reset",
+        "REQUEST_RESET_PASSWORD":"/request_reset",
+        "CONFIRM_EMAIL":"/confirm",
+        "REQUEST_SERVER_TOKEN":"/server"
+    },
+    "EMAIL":{
+        "address":"dummewerbung2@gmail.com",
+        "noreply":"no-reply@falcon.com",
+        "password":"Frodo20#14"
+    }
+}
