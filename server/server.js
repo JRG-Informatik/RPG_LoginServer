@@ -79,8 +79,8 @@ app.post(ENV.PAGE.REQUEST_RESET_PASSWORD, async (req, res) => {
     let mailOptions = {
         from: ENV.EMAIL.noreply,
         to: user.email,
-        subject: 'FALCON | Password Reset',
-        text: `Hello ${user.username},\n\nA password reset for your Falcon account was requested.\nTo reset your password follow the link: ${ENV.DOMAIN}${ENV.PAGE.RESET_PASSWORD}/${token}`
+        subject: getString("email_password_reset_title"),
+        text: util.format(getString("email_password_reset_content"), user.username, ENV.DOMAIN, ENV.PAGE.RESET_PASSWORD, token)//`Hello ${user.username},\n\nA password reset for your Falcon account was requested.\nTo reset your password follow the link: ${ENV.DOMAIN}${ENV.PAGE.RESET_PASSWORD}/${token}`
     }
     getMailTransporter().sendMail(mailOptions, (err)=>{if(err){console.log(err);}});
 });

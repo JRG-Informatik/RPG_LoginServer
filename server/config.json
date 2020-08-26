@@ -17,6 +17,8 @@
     "STRING":{
       "TITLE":"informatik_RPG",
       "email_account_validation_title":"#TITLE | Account validation",
-      "email_account_validation_content":"Hello %s,\n\nTo verify your #TITLE account please follow the link: %s%s/%s"
+      "email_account_validation_content":"Hello %s,\n\nTo verify your #TITLE account please follow the link: %s%s/%s",
+      "email_password_reset_title":"#TITLE | Password Reset",
+      "email_password_reset_content":"Hello %s,\n\nA password reset for your #TITLE account was requested.\nTo reset your password follow the link: %s%s/%s"
     }
 }
