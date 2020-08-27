@@ -161,8 +161,8 @@ app.listen(80, ()=>{console.log('server running...');});
 function authenticate(req, res, next){
     let body = req.method=='POST'?req.body:req.query;
     if(!body || !body.token){
-        res.end();
-        //res.redirect(ENV.PAGE.LOGIN);
+        //res.end();
+        res.redirect(ENV.PAGE.LOGIN);
         console.log('failed authentication');
         return;
     }
